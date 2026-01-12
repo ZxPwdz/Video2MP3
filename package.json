@@ -1,0 +1,51 @@
+{
+  "name": "video2mp3",
+  "version": "1.0.0",
+  "description": "Video to MP3 Converter - Download and convert videos to MP3",
+  "main": "main.js",
+  "author": "ZxPwd",
+  "license": "MIT",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder --win portable --config.win.signAndEditExecutable=false",
+    "build:installer": "electron-builder --win nsis --config.win.signAndEditExecutable=false"
+  },
+  "dependencies": {
+    "electron-store": "^8.1.0",
+    "express": "^4.18.2",
+    "cors": "^2.8.5"
+  },
+  "devDependencies": {
+    "electron": "^28.0.0",
+    "electron-builder": "^24.9.1"
+  },
+  "build": {
+    "appId": "com.zxpwd.video2mp3",
+    "productName": "Video2MP3",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "**/*",
+      "!dist/**"
+    ],
+    "extraResources": [
+      {
+        "from": "bin/",
+        "to": "bin/",
+        "filter": ["**/*"]
+      }
+    ],
+    "asarUnpack": [
+      "icon.png"
+    ],
+    "win": {
+      "target": ["portable"],
+      "signAndEditExecutable": false,
+      "icon": "icon.png"
+    },
+    "portable": {
+      "artifactName": "Video2MP3-Portable.exe"
+    }
+  }
+}

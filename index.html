@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:;">
+  <title>Video2MP3</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Custom Title Bar -->
+  <div class="titlebar">
+    <div class="titlebar-drag">
+      <div class="titlebar-logo">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polygon points="5,3 19,12 5,21" fill="url(#grad)"/>
+          <defs>
+            <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" style="stop-color:#00f0ff"/>
+              <stop offset="100%" style="stop-color:#ff00aa"/>
+            </linearGradient>
+          </defs>
+        </svg>
+        <span class="app-title">VIDEO2MP3</span>
+        <span class="app-subtitle">by ZxPwd</span>
+      </div>
+    </div>
+    <div class="titlebar-controls">
+      <button class="titlebar-btn" id="minimizeBtn" title="Minimize">
+        <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      </button>
+      <button class="titlebar-btn" id="maximizeBtn" title="Maximize">
+        <svg viewBox="0 0 24 24"><rect x="5" y="5" width="14" height="14" rx="1"/></svg>
+      </button>
+      <button class="titlebar-btn close-btn" id="closeBtn" title="Close">
+        <svg viewBox="0 0 24 24"><line x1="6" y1="6" x2="18" y2="18"/><line x1="6" y1="18" x2="18" y2="6"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-container">
+    <!-- Sidebar -->
+    <nav class="sidebar">
+      <button class="nav-btn active" data-view="download">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+          <polyline points="7,10 12,15 17,10"/>
+          <line x1="12" y1="15" x2="12" y2="3"/>
+        </svg>
+        <span>Download</span>
+      </button>
+      <button class="nav-btn" data-view="history">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"/>
+          <polyline points="12,6 12,12 16,14"/>
+        </svg>
+        <span>History</span>
+        <span class="badge" id="historyBadge">0</span>
+      </button>
+      <button class="nav-btn" data-view="settings">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="3"/>
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+        </svg>
+        <span>Settings</span>
+      </button>
+
+      <div class="sidebar-footer">
+        <button class="nav-btn folder-btn" id="openFolderBtn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
+          </svg>
+          <span>Open Folder</span>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Content Area -->
+    <main class="content">
+      <!-- Download View -->
+      <section class="view active" id="downloadView">
+        <div class="view-header">
+          <h1>Download Video</h1>
+          <p>Paste a video URL and choose your format</p>
+        </div>
+
+        <!-- Format Toggle -->
+        <div class="format-toggle-container">
+          <div class="format-toggle" id="formatToggle">
+            <button class="format-btn active" data-format="mp3">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M9 18V5l12-2v13"/>
+                <circle cx="6" cy="18" r="3"/>
+                <circle cx="18" cy="16" r="3"/>
+              </svg>
+              <span>MP3</span>
+              <small>Audio Only</small>
+            </button>
+            <button class="format-btn" data-format="mp4">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/>
+                <line x1="7" y1="2" x2="7" y2="22"/>
+                <line x1="17" y1="2" x2="17" y2="22"/>
+                <line x1="2" y1="12" x2="22" y2="12"/>
+                <line x1="2" y1="7" x2="7" y2="7"/>
+                <line x1="2" y1="17" x2="7" y2="17"/>
+                <line x1="17" y1="17" x2="22" y2="17"/>
+                <line x1="17" y1="7" x2="22" y2="7"/>
+              </svg>
+              <span>MP4</span>
+              <small>Video</small>
+            </button>
+          </div>
+        </div>
+
+        <div class="url-input-container">
+          <div class="url-input-wrapper">
+            <svg class="url-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
+              <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+            </svg>
+            <input type="text" id="urlInput" placeholder="Paste YouTube, Vimeo, TikTok, or other video URL...">
+            <button class="paste-btn" id="pasteBtn" title="Paste from clipboard">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>
+                <rect x="8" y="2" width="8" height="4" rx="1" ry="1"/>
+              </svg>
+            </button>
+          </div>
+          <button class="download-btn" id="downloadBtn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+              <polyline points="7,10 12,15 17,10"/>
+              <line x1="12" y1="15" x2="12" y2="3"/>
+            </svg>
+            <span id="downloadBtnText">Download MP3</span>
+          </button>
+        </div>
+
+        <!-- Video Preview -->
+        <div class="video-preview hidden" id="videoPreview">
+          <div class="preview-thumbnail">
+            <img id="previewThumbnail" src="" alt="Video thumbnail">
+            <div class="preview-duration" id="previewDuration"></div>
+          </div>
+          <div class="preview-info">
+            <h3 id="previewTitle">Video Title</h3>
+            <p id="previewChannel">Channel Name</p>
+          </div>
+        </div>
+
+        <!-- Active Downloads -->
+        <div class="active-downloads" id="activeDownloads">
+          <h2>Active Downloads</h2>
+          <div class="downloads-list" id="activeDownloadsList">
+            <!-- Active download items will be inserted here -->
+          </div>
+        </div>
+
+        <!-- Supported Sites -->
+        <div class="supported-sites">
+          <h3>Supported Sites</h3>
+          <div class="site-icons">
+            <span class="site-tag youtube">YouTube</span>
+            <span class="site-tag vimeo">Vimeo</span>
+            <span class="site-tag tiktok">TikTok</span>
+            <span class="site-tag twitter">Twitter</span>
+            <span class="site-tag instagram">Instagram</span>
+            <span class="site-tag facebook">Facebook</span>
+            <span class="site-tag twitch">Twitch</span>
+            <span class="site-tag more">+1000 more</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- History View -->
+      <section class="view" id="historyView">
+        <div class="view-header">
+          <h1>Download History</h1>
+          <div class="header-actions">
+            <button class="action-btn" id="clearHistoryBtn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="3,6 5,6 21,6"/>
+                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+              </svg>
+              <span>Clear All</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="history-filters">
+          <button class="filter-btn active" data-filter="all">All</button>
+          <button class="filter-btn" data-filter="complete">Completed</button>
+          <button class="filter-btn" data-filter="error">Failed</button>
+        </div>
+
+        <div class="history-list" id="historyList">
+          <!-- History items will be inserted here -->
+        </div>
+
+        <div class="empty-state" id="emptyHistory">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <circle cx="12" cy="12" r="10"/>
+            <polyline points="12,6 12,12 16,14"/>
+          </svg>
+          <h3>No downloads yet</h3>
+          <p>Your download history will appear here</p>
+        </div>
+      </section>
+
+      <!-- Settings View -->
+      <section class="view" id="settingsView">
+        <div class="view-header">
+          <h1>Settings</h1>
+        </div>
+
+        <div class="settings-content">
+          <div class="setting-group">
+            <h3>Download Location</h3>
+            <div class="setting-row">
+              <input type="text" id="outputDirInput" readonly>
+              <button class="browse-btn" id="browseFolderBtn">Browse</button>
+            </div>
+          </div>
+
+          <div class="setting-group">
+            <h3>Download Format</h3>
+            <div class="setting-row">
+              <select id="downloadFormatSelect">
+                <option value="mp3" selected>MP3 (Audio Only)</option>
+                <option value="mp4">MP4 (Video)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="setting-group" id="audioQualityGroup">
+            <h3>Audio Quality</h3>
+            <div class="setting-row">
+              <select id="audioQualitySelect">
+                <option value="320">320 kbps (Best)</option>
+                <option value="256">256 kbps</option>
+                <option value="192" selected>192 kbps (Recommended)</option>
+                <option value="128">128 kbps</option>
+                <option value="96">96 kbps (Smallest)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="setting-group hidden" id="videoQualityGroup">
+            <h3>Video Quality</h3>
+            <div class="setting-row">
+              <select id="videoQualitySelect">
+                <option value="best" selected>Best Available</option>
+                <option value="1080">1080p</option>
+                <option value="720">720p</option>
+                <option value="480">480p</option>
+                <option value="360">360p</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="setting-group">
+            <h3>Behavior</h3>
+            <div class="setting-row checkbox-row">
+              <label class="checkbox-label">
+                <input type="checkbox" id="showSplashCheck" checked>
+                <span class="checkmark"></span>
+                <span>Show intro video on startup</span>
+              </label>
+            </div>
+            <div class="setting-row checkbox-row">
+              <label class="checkbox-label">
+                <input type="checkbox" id="minimizeToTrayCheck" checked>
+                <span class="checkmark"></span>
+                <span>Minimize to system tray on close</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="setting-group">
+            <h3>About</h3>
+            <div class="about-info">
+              <p><strong>Video2MP3</strong> v1.0.0</p>
+              <p>Created by <span class="highlight">ZxPwd</span></p>
+              <p class="muted">Convert videos to MP3 with ease</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Toast Notifications -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <script src="renderer.js"></script>
+</body>
+</html>

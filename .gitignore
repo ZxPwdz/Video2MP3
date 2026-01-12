@@ -1,0 +1,9 @@
+node_modules/
+dist/
+bin/
+*.log
+.DS_Store
+Thumbs.db
+*.bat
+*.ps1
+github-upload-config.json
