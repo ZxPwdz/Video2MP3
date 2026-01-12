@@ -25,6 +25,28 @@
 
 ---
 
+
+## Download
+
+<p align="center">
+  <a href="https://github.com/ZxPwdz/Video2MP3/releases/latest/download/Video2MP3-Portable.zip">
+    <img src="https://img.shields.io/badge/%E2%AC%87%EF%B8%8F_DOWNLOAD-Video2MP3_v1.0.0-00f0ff?style=for-the-badge&labelColor=0a0a0f" alt="Download">
+  </a>
+</p>
+
+<p align="center">
+  <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&weight=600&size=18&duration=2000&pause=1000&color=00F0FF&center=true&vCenter=true&width=435&lines=%F0%9F%9A%80+Click+above+to+download!;%E2%9C%A8+No+installation+required!;%F0%9F%8E%B5+Convert+videos+to+MP3%2FMP4!" alt="Typing SVG">
+</p>
+
+<p align="center">
+  <a href="https://github.com/ZxPwdz/Video2MP3/releases">All Releases</a>
+  &nbsp;•&nbsp;
+  <b>Windows 10/11</b>
+  &nbsp;•&nbsp;
+  <b>188 MB</b>
+</p>
+
+---
 ## Features
 
 - **Multi-Platform Support** - Download from YouTube, TikTok, Vimeo, Twitter/X, Instagram, Facebook, Twitch, SoundCloud, and 1000+ more sites
@@ -40,23 +62,8 @@
 
 ---
 
-## Download
 
-<p align="center">
-  <a href="https://github.com/ZxPwdz/Video2MP3/releases/latest">
-    <img src="https://img.shields.io/badge/Download-Video2MP3%20v1.0.0-00f0ff?style=for-the-badge&logo=windows&logoColor=white" alt="Download">
-  </a>
-</p>
 
-<p align="center">
-  <a href="https://github.com/ZxPwdz/Video2MP3/releases/latest/download/Video2MP3-Portable.zip">
-    <b>Direct Download (Windows)</b>
-  </a>
-  &nbsp;|&nbsp;
-  <a href="https://github.com/ZxPwdz/Video2MP3/releases">
-    All Releases
-  </a>
-</p>
 
 
 ---
