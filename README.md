@@ -42,7 +42,22 @@
 
 ## Download
 
-Download the latest portable executable from the [Releases](https://github.com/ZxPwdz/Video2MP3/releases) page.
+<p align="center">
+  <a href="https://github.com/ZxPwdz/Video2MP3/releases/latest">
+    <img src="https://img.shields.io/badge/Download-Video2MP3%20v1.0.0-00f0ff?style=for-the-badge&logo=windows&logoColor=white" alt="Download">
+  </a>
+</p>
+
+<p align="center">
+  <a href="https://github.com/ZxPwdz/Video2MP3/releases/latest/download/Video2MP3-Portable.zip">
+    <b>Direct Download (Windows)</b>
+  </a>
+  &nbsp;|&nbsp;
+  <a href="https://github.com/ZxPwdz/Video2MP3/releases">
+    All Releases
+  </a>
+</p>
+
 
 ---
 
